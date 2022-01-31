@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 
 export(int) var spawn_chance := 50
 export var box_size = Vector2(5,4)
