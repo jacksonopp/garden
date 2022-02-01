@@ -13,4 +13,6 @@ func place_plant(plant) -> void:
 
 
 func _on_Tile_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
-	print(viewport, event, shape_idx)
+	if event is InputEventMouseButton and event.is_pressed():
+		if highlight.visible:
+			print('you clicked a valid tile')

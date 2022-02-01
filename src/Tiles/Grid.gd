@@ -32,7 +32,6 @@ func generate_grid() -> void:
 			self.add_child(tile)
 
 func generate_vertical_tiles() -> void:
-#	clear_all_tile_highlights()
 	var rand_x = randi() % int(map_size.x + 1) * 16 - 8
 	var clean_rand_x = max(rand_x, 8)
 	var positions := []
@@ -43,11 +42,9 @@ func generate_vertical_tiles() -> void:
 			var t = get_tile_at_position(tile.position)
 			if t != null:
 				positions.append(t.position)
-	
 	placement_patterns.append(positions)
 
 func generate_horizontal_tiles() -> void:
-#	clear_all_tile_highlights()
 	var rand_y = randi() % int(map_size.y + 1) * 16 - 8
 	var clean_rand_y = max(rand_y, 8)
 	var positions := []
@@ -61,7 +58,6 @@ func generate_horizontal_tiles() -> void:
 	placement_patterns.append(positions)
 
 func generate_box_tiles() -> void:
-#	clear_all_tile_highlights()
 	var box_positions: Array
 	var positions := []
 
@@ -87,6 +83,9 @@ func generate_box_tiles() -> void:
 	
 	placement_patterns.append(positions)
 
+func clear_placement_patterns() -> void:
+	placement_patterns.clear()
+
 func highlight_tiles(idx: int) -> void:
 	clear_all_tile_highlights()
 	var highlight_pos = placement_patterns[idx]
@@ -95,9 +94,6 @@ func highlight_tiles(idx: int) -> void:
 		var tile = get_tile_at_position(pos)
 		if tile != null:
 			tile.highlight.visible = true
-
-func clear_placement_patterns() -> void:
-	placement_patterns.clear()
 
 func get_tile_at_position(position: Vector2) -> GameTile:
 	for i in range(all_tiles.size()):

@@ -12,23 +12,30 @@ signal selection_pressed(value)
 func _ready() -> void:
 	selection_buttons.visible = false
 
-func set_selection_button_text(selections: Array) -> void:
+func set_selection_button_text() -> void:
 	selection_buttons.visible = true
 	var selection_texts: Array
-	for selection in selections:
+	for pattern in GameManager.available_placement_patterns:
 		var sel = ""
-		match selection:
-			WorldNode.PlacementPattern.BOX:
-				sel += "Box"
-			WorldNode.PlacementPattern.HORIZONTAL:
-				sel += "Horiz"
-			WorldNode.PlacementPattern.VERTICAL:
-				sel += "Vert"
+		sel += get_selection_pattern_text(pattern.pattern)
+		sel += " "
+		sel += pattern.plant.name
 		selection_texts.append(sel)
-		
+
 	selection_one_btn.text = selection_texts[0]
 	selection_two_btn.text = selection_texts[1]
-	
+
+func get_selection_pattern_text(pattern: int) -> String:
+	var sel_str = ""
+	match pattern:
+		GameManager.PlacementPattern.BOX:
+			sel_str += "Box"
+		GameManager.PlacementPattern.HORIZONTAL:
+			sel_str += "Horiz"
+		GameManager.PlacementPattern.VERTICAL:
+			sel_str += "Vert"
+	return sel_str
+
 func _on_Button_pressed() -> void:
 	emit_signal("next_pressed")
 
