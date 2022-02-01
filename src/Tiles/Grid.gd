@@ -4,7 +4,7 @@ export(int) var spawn_chance := 50
 export var box_size = Vector2(5,4)
 
 var all_tiles: Array
-var tile_size := 16.0
+const tile_size := 16.0
 var map_size = Vector2(20, 16)
 var available_placement_patterns: Array
 var placement_patterns: Array = []
@@ -111,3 +111,49 @@ func get_tile_at_position(position: Vector2) -> GameTile:
 func clear_all_tile_highlights() -> void:
 	for tile in all_tiles:
 		tile.highlight.visible = false
+
+func grow_plants() -> void:
+	print('growing plants')
+	for tile in all_tiles:
+		var t: GameTile = tile
+		if t.has_plant:
+			t.add_plant_life()
+			match t.plant_on_tile:
+				PlantData.PlantMetadata.Type.WEED:
+					grow_weed(t)
+
+func grow_weed(plant: GameTile) -> void:
+	var neighbor_tiles = get_neighbor_tiles(plant)
+	
+	for t in neighbor_tiles:
+		var tile: GameTile = t
+		if tile != null and !tile.has_plant:
+			if plant.life_of_plant % 2 == 1:
+				tile.toggle_grow_highlight(true)
+			if plant.life_of_plant % 2 == 0:
+				tile.toggle_grow_highlight(false)
+				var chance = rand_range(0, plant.chance_for_growth) < 1
+				if chance:
+					tile.place_temp_plant(PlantData.weed)
+					tile.toggle_flashing_plant(true)
+
+func get_neighbor_tiles(plant: GameTile) -> Array:
+	var n_tile := get_tile_at_position(plant.position + Vector2(0, tile_size))
+	var ne_tile := get_tile_at_position(plant.position + Vector2(tile_size, tile_size))
+	var e_tile := get_tile_at_position(plant.position + Vector2(tile_size, 0))
+	var se_tile := get_tile_at_position(plant.position + Vector2(tile_size, -tile_size))
+	var s_tile := get_tile_at_position(plant.position + Vector2(0, -tile_size))
+	var sw_tile := get_tile_at_position(plant.position + Vector2(-tile_size, -tile_size))
+	var w_tile := get_tile_at_position(plant.position + Vector2(-tile_size, 0))
+	var nw_tile := get_tile_at_position(plant.position + Vector2(-tile_size, tile_size))
+	var neighbor_tiles = [
+		n_tile,
+		ne_tile,
+		e_tile,
+		se_tile,
+		s_tile,
+		sw_tile,
+		w_tile,
+		nw_tile
+	]
+	return neighbor_tiles

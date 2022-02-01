@@ -37,7 +37,7 @@ func _on_UI_next_pressed() -> void:
 				grid.generate_horizontal_tiles()
 			PlacementPattern.BOX:
 				grid.generate_box_tiles()
-
+	grid.grow_plants()
 # Clicking a selection option will highlight the available tiles
 func _on_UI_selection_pressed(value: int) -> void:
 	grid.highlight_tiles(value)

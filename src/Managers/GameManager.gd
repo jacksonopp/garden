@@ -6,6 +6,8 @@ enum PlacementPattern {
 	BOX
 }
 
+var turn_number: int = 0
+
 var available_placement_patterns: Array
 var selected_placement_pattern: int
 var selected_plant: int
@@ -20,3 +22,6 @@ func set_placement_patterns(pattern: int, plant) -> void:
 
 func set_selected_plant(plant) -> void:
 	plant_to_place = plant
+
+func next_turn() -> void:
+	turn_number += 1

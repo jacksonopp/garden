@@ -6,6 +6,7 @@ onready var selection_buttons := $SideBar/SelectionButtons
 onready var selection_one_btn := $SideBar/SelectionButtons/SelectionOne
 onready var selection_two_btn := $SideBar/SelectionButtons/SelectionTwo
 onready var bottom_bar_button := $BottomBar/Button
+onready var turn_label := $BottomBar/TurnLabel
 
 signal next_pressed()
 signal selection_pressed(value)
@@ -13,6 +14,7 @@ signal selection_pressed(value)
 func _ready() -> void:
 	selection_buttons.visible = false
 	bottom_bar_button.visible = true
+	set_turn_label(0)
 
 func hide_selection_buttons() -> void:
 	selection_buttons.visible = false
@@ -45,8 +47,16 @@ func get_selection_pattern_text(pattern: int) -> String:
 			sel_str += "Vert"
 	return sel_str
 
+func set_turn_label(turn_number: int) -> void:
+	if turn_number == 0:
+		turn_label.text = "Start"
+	else:
+		turn_label.text = "Turn " + str(turn_number)
+
 func _on_Button_pressed() -> void:
 	emit_signal("next_pressed")
+	GameManager.next_turn()
+	set_turn_label(GameManager.turn_number)
 
 
 func _on_SelectionOne_pressed() -> void:
