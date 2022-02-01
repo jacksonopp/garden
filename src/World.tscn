@@ -45,6 +45,7 @@ margin_bottom = -226.0
 margin_left = 200.0
 margin_right = 200.0
 
+[connection signal="plant_placed" from="Grid" to="." method="_on_Grid_plant_placed"]
 [connection signal="next_pressed" from="UI" to="." method="_on_UI_next_pressed"]
 [connection signal="selection_pressed" from="UI" to="." method="_on_UI_selection_pressed"]
 

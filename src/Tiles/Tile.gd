@@ -6,6 +6,8 @@ var has_plant = false
 
 onready var highlight = $Highlight
 
+signal plant_placed()
+
 func place_plant(plant) -> void:
 	var p = plant.Scene.instance()
 	self.add_child(p)
@@ -15,4 +17,5 @@ func place_plant(plant) -> void:
 func _on_Tile_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.is_pressed():
 		if highlight.visible:
-			print('you clicked a valid tile')
+			place_plant(GameManager.plant_to_place)
+			emit_signal("plant_placed")

@@ -18,5 +18,6 @@ func set_placement_patterns(pattern: int, plant) -> void:
 	var temp = {"pattern": pattern, "plant": plant}
 	available_placement_patterns.append(temp)
 
-func set_selected_plant(plant: int) -> void:
-	selected_placement_pattern = plant
+func set_selected_plant(plant) -> void:
+	plant_to_place = plant
+	print(plant)

@@ -11,6 +11,8 @@ var placement_patterns: Array = []
 
 var Tile = preload("res://src/Tiles/Tile.tscn")
 
+signal plant_placed()
+
 func _ready() -> void:
 	randomize()
 	generate_grid()
@@ -22,6 +24,10 @@ func _ready() -> void:
 		if chance < 1:
 			var Weed = PlantData.weed
 			tile.place_plant(Weed)
+		tile.connect("plant_placed", self, "_on_plant_placed")
+
+func _on_plant_placed() -> void:
+	emit_signal("plant_placed")
 
 func generate_grid() -> void:
 	for x in map_size.x:
