@@ -20,4 +20,3 @@ func set_placement_patterns(pattern: int, plant) -> void:
 
 func set_selected_plant(plant) -> void:
 	plant_to_place = plant
-	print(plant)

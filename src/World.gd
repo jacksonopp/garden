@@ -44,7 +44,6 @@ func _on_UI_selection_pressed(value: int) -> void:
 	var selected_plant = GameManager.available_placement_patterns[value].plant
 	GameManager.set_selected_plant(selected_plant)
 
-
 func _on_Grid_plant_placed() -> void:
 	ui.hide_selection_buttons()
 	ui.show_bottom_bar_button()
